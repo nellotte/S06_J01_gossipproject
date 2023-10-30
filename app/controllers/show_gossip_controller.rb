@@ -1,0 +1,2 @@
+class ShowGossipController < ApplicationController
+end
