@@ -81,5 +81,5 @@ ActiveRecord::Schema[7.1].define(version: 2023_10_30_120016) do
     t.datetime "updated_at", null: false
     t.index ["city_id"], name: "index_users_on_city_id"
   end
-  add_foreign_key "likes", "users"
+
 end

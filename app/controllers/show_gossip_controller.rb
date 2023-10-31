@@ -1,2 +1,0 @@
-class ShowGossipController < ApplicationController
-end
