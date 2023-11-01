@@ -24,7 +24,8 @@
         <%= link_to 'Modifier', edit_gossip_path(@gossip), class: 'btn btn-primary' %>
 
         <!-- Bouton Supprimer -->
-        <a href="<%= gossip_path(@gossip.id) %>" class="btn btn-danger" data-confirm="Voulez-vous vraiment supprimer ce gossip ?" data-method="DELETE" data-turbo-disabled="true">Supprimer</a>
+        <%= button_to "Supprimer le potin", gossip_path, class: "button btn btn-outline-danger btn-light", form: {data: {turbo_confirm: 'Valider ?'}}, method: :delete %>
+          <!-- <a href="<%= gossip_path %>" class="btn btn-danger" data-confirm="Voulez-vous vraiment supprimer ce gossip ?" data-method="DELETE" >Supprimer</a>
 
       </div>
 
