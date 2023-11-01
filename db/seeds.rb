@@ -44,6 +44,21 @@ end
   )
 end
 
+City.create(
+  name: "Paris",
+  zip_code: "75011")
+
+  paris_city = City.find_by(name: "Paris", zip_code: "75011")
+
+User.create(
+  first_name: "Nelly",
+  last_name: "Guerin",
+  city: paris_city,
+  description: Faker::Lorem.sentence(word_count: 5),
+  email: "nelly.guerin@gmail.com",
+  age: "36",
+)
+
 # 10.times do
 #   Tag.create!(
 #     title: Faker::Book.genre 

@@ -4,30 +4,31 @@
     <title>Show Gossip</title>
   </head>
   <body>
-    <body data-turbo="false">
-      <%= yield %> 
-    </body>
+   <!-- alerte post bien modifié -->
+<% if flash[:modif_success] %>
+  <div class="alert alert-success">
+    <%= flash[:modif_success] %>
+  </div>
+<% end %>
 
     <div class="card mx-auto" style="width: 18rem;">
       <div class="card-body text-center d-flex flex-column">
         <h5 class="card-title">Ceci est la page du potin numéro <%= @gossip.id %></h5>
-        <h6 class="card-subtitle mb-2 text-muted">Ce potin a été écrit par : <%= @gossip.user.first_name %></h6>
+        <h6 class="card-subtitle mb-2 text-muted">Ce potin a été écrit par  <%= link_to @gossip.user.first_name, user_path(@gossip.user) %>  de <%= link_to @gossip.user.city.name , city_path(@gossip.user.city)%> </h6>
         <p class="card-text">Titre du potin : <%= @gossip.title %></p>
         <p class="card-text">Contenu du potin : <%= @gossip.content %></p>
 
-        <a href="#" class="card-link">Voir le profil de l'auteur</a>
-
-        <!-- Bouton Retour -->
-        <%= link_to 'Retour à la liste de gossips', gossips_path, class: 'btn btn-secondary' %>
-
         <!-- Bouton Modifier -->
-        <%= link_to 'Modifier', edit_gossip_path(@gossip), class: 'btn btn-primary' %>
+        <%= button_to 'Modifier', edit_gossip_path(@gossip), class: 'btn btn-primary' %>
 
         <!-- Bouton Supprimer -->
-        <%= button_to "Supprimer le potin", gossip_path, class: "button btn btn-outline-danger btn-light", form: {data: {turbo_confirm: 'Valider ?'}}, method: :delete %>
+        <%= button_to "Supprimer", gossip_path, class: 'btn btn-secondary' , form: {data: {turbo_confirm: 'Valider ?'}}, method: :delete %>
           <!-- <a href="<%= gossip_path %>" class="btn btn-danger" data-confirm="Voulez-vous vraiment supprimer ce gossip ?" data-method="DELETE" >Supprimer</a>
 
-      </div>
+      <!-- Bouton Retour -->
+        <p>
+          <a href="<%= gossips_path %>">Retour à la liste de gossips</a>
+        </p>    
 
       </div>
     </div>
