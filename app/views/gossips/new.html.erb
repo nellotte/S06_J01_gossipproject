@@ -2,7 +2,16 @@
   <head>
     <title>Créer un potin</title>
   </head>
+
   <body>
+    <!-- alerte post non créé -->
+    <% if flash[:error] %>
+      <div class="alert alert-danger">
+        <%= flash[:error] %>
+      </div>
+     <% end %>
+     <!--  -->
+
     <h1>Raconte nous tout !</h1>
 
     <p>Balance ton potin via le formulaire ci-dessous</p>
@@ -19,9 +28,7 @@
       <%= text_area_tag 'content', @gossip.content %>
       <br /> <br />
 
-      <%= label_tag 'Author' %>
-      <%= text_field_tag 'author', @gossip.user_id %>
-      <br /> <br />
+   
 
       <%= submit_tag "Create Post" %>
 

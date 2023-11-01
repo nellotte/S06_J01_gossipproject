@@ -7,8 +7,8 @@
         <div class="card h-75">
           <div class="card-body">
             <h5 class="card-title"><%= gossip.title %></h5>
-            <p class="card-text"><%= gossip.content %></p>
-            <%= link_to 'Lire', gossip_path(gossip.id), class: 'btn btn-outline-primary' %>
+             <%= "#{gossip.content.split[0, 20].join(' ')}..." %> <%# Divise en mots, puis affiche les 20 premiers mots et "..." %>
+            <%= link_to 'Lire la suite', gossip_path(gossip.id), class: 'btn btn-outline-primary' %>
           </div>
         </div>
       </div>

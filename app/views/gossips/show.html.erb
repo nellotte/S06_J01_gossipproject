@@ -4,15 +4,30 @@
     <title>Show Gossip</title>
   </head>
   <body>
+    <body data-turbo="false">
+      <%= yield %> 
+    </body>
+
     <div class="card mx-auto" style="width: 18rem;">
       <div class="card-body text-center d-flex flex-column">
         <h5 class="card-title">Ceci est la page du potin numéro <%= @gossip.id %></h5>
         <h6 class="card-subtitle mb-2 text-muted">Ce potin a été écrit par : <%= @gossip.user.first_name %></h6>
         <p class="card-text">Titre du potin : <%= @gossip.title %></p>
         <p class="card-text">Contenu du potin : <%= @gossip.content %></p>
-        <a href="<%= gossips_path %>" class="card-link">Retour à la liste de gossips</a>
-        <a href="#" class="card-link">Modifier le gossip</a>
+
         <a href="#" class="card-link">Voir le profil de l'auteur</a>
+
+        <!-- Bouton Retour -->
+        <%= link_to 'Retour à la liste de gossips', gossips_path, class: 'btn btn-secondary' %>
+
+        <!-- Bouton Modifier -->
+        <%= link_to 'Modifier', edit_gossip_path(@gossip), class: 'btn btn-primary' %>
+
+        <!-- Bouton Supprimer -->
+        <a href="<%= gossip_path(@gossip.id) %>" class="btn btn-danger" data-confirm="Voulez-vous vraiment supprimer ce gossip ?" data-method="DELETE" data-turbo-disabled="true">Supprimer</a>
+
+      </div>
+
       </div>
     </div>
   </body>
