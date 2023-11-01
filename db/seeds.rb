@@ -13,6 +13,7 @@ Faker::Config.locale = 'fr'
 
 
 #Tag.destroy_all
+Comment.destroy_all
 Gossip.destroy_all
 User.destroy_all
 City.destroy_all
@@ -84,14 +85,37 @@ User.create(
 #     )
 #   end
 # end
-
-# 20.times do 
-#   Comment.create!(
-#     content: Faker::Quote.matz,
-#     user: User.all.sample,
-#     gossip: Gossip.all.sample
-#   )
-# end
+contrepetries =[
+  "Il faudrait une bonne purge à cette vaisselle!",
+  "Ma belle-mère admire les rossignols du caroubier.",
+  "Votre père a l'air mutin.", 
+  "L'Empereur est arrivé à pied par la Chine.",
+  "Est-ce un feu de poutre?", 
+  "Mammouth écrase les prix.", 
+  "C'est ici qu'on pendit le fuselage de l'aviatrice.",
+  "Les étudiantes admiraient le factum du recteur.", 
+  "Les laborieuses populations du Cap.", 
+  "La cuvette est pleine de bouillon.", 
+  "Le scorpion est malade.", 
+  "Quel beau métier: professeur!", 
+  "Elle est folle de la messe.", 
+  "Dès qu'on touche à son petit banc, cet enfant boude", 
+  "A la vue des Nippons, la Chine se soulève.", 
+  "Glisser dans la piscine.", 
+  "Taisez-vous en bas!", 
+  "Ma soeur taille des jupes au Pirée.", 
+  "Pour bien dîner, il faut être peu.", 
+  "Auberge de Vendée.", 
+]
+Gossip.all.each do |gossip|
+  3.times do
+    Comment.create!(
+      content: contrepetries.sample, # Utiliser un générateur de contrepétries si disponible
+      user: User.where.not(id: gossip.user_id).sample,
+      gossip: gossip
+    )
+  end
+end
 
 # 20.times do
 #   user = User.all.sample 

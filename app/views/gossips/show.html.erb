@@ -1,36 +1,72 @@
-
 <html>
   <head>
     <title>Show Gossip</title>
   </head>
   <body>
-   <!-- alerte post bien modifié -->
-<% if flash[:modif_success] %>
-  <div class="alert alert-success">
-    <%= flash[:modif_success] %>
+    <!-- alerte post bien modifié -->
+    <% if flash[:modif_success] %>
+      <div class="alert alert-success">
+        <%= flash[:modif_success] %>
+      </div>
+    <% end %>
+
+    <div class="mt-4"></div> <!-- Ajout de la marge -->
+    <div class="container">
+      <div class="card text-center">
+        <div class="card-header">
+          Gossip : <%= @gossip.id %>
+        </div>
+        <div class="card-body">
+          <h5 class="card-title"><%= @gossip.title %></h5>
+          <p class="card-text"> <%= @gossip.content %></p>
+          
+         <!-- Boutons avec marge autour -->
+          <div class="d-flex justify-content-center">
+            <div class="mx-2">
+              <%= link_to 'Modifier', edit_gossip_path(@gossip), class: 'btn btn-primary' %>
+            </div>
+            <div class="mx-2">
+              <%= button_to "Supprimer", gossip_path, class: 'btn btn-secondary', form: {data: {turbo_confirm: 'Valider ?'}}, method: :delete %>
+
+            </div>
+          </div>
+
+
+        </div>
+        <div class="card-footer text-muted">
+          Ce gossip a été écrit par  <%= link_to @gossip.user.first_name, user_path(@gossip.user) %>  de <%= link_to @gossip.user.city.name , city_path(@gossip.user.city)%> 
+        </div>
+      </div>
+    </div>
+
+     <!-- Liste des commentaires -->
+      <h5 class="card-title">Commentaires</h5>
+
+<%= form_with(model: [@gossip, Comment.new], url: gossip_comments_path(@gossip)) do |form| %>
+  <div class="form-group">
+    <%= form.label :content, "Écrire un commentaire" %>
+    <%= form.text_area :content, class: "form-control", id: "comment_content" %>
+  </div>
+  <div class="form-group">
+    <%= form.submit "Valider", class: "btn btn-primary" %>
   </div>
 <% end %>
 
-    <div class="card mx-auto" style="width: 18rem;">
-      <div class="card-body text-center d-flex flex-column">
-        <h5 class="card-title">Ceci est la page du potin numéro <%= @gossip.id %></h5>
-        <h6 class="card-subtitle mb-2 text-muted">Ce potin a été écrit par  <%= link_to @gossip.user.first_name, user_path(@gossip.user) %>  de <%= link_to @gossip.user.city.name , city_path(@gossip.user.city)%> </h6>
-        <p class="card-text">Titre du potin : <%= @gossip.title %></p>
-        <p class="card-text">Contenu du potin : <%= @gossip.content %></p>
+    
+      <ul class="list-group list-group-flush">
+        <% @gossip.comments.each do |comment| %>
+          <li class="list-group-item">
+            <%= comment.content %><br>
+            Ecrit par <%= comment.user.first_name %>, le <%= comment.updated_at.strftime("%d/%m/%Y") %>
+            <%= button_to "Supprimer", [@gossip, comment], class: 'btn btn-secondary', form: {data: {turbo_confirm: 'Valider ?'}}, method: :delete %>
+          </li>
+        <% end %>
+      </ul>
+          <!-- Bouton Retour -->
+          <p>
+            <a href="<%= gossips_path %>">Retour à la liste de gossips</a>
+          </p>
 
-        <!-- Bouton Modifier -->
-        <%= button_to 'Modifier', edit_gossip_path(@gossip), class: 'btn btn-primary' %>
-
-        <!-- Bouton Supprimer -->
-        <%= button_to "Supprimer", gossip_path, class: 'btn btn-secondary' , form: {data: {turbo_confirm: 'Valider ?'}}, method: :delete %>
-          <!-- <a href="<%= gossip_path %>" class="btn btn-danger" data-confirm="Voulez-vous vraiment supprimer ce gossip ?" data-method="DELETE" >Supprimer</a>
-
-      <!-- Bouton Retour -->
-        <p>
-          <a href="<%= gossips_path %>">Retour à la liste de gossips</a>
-        </p>    
-
-      </div>
-    </div>
   </body>
 </html>
+
