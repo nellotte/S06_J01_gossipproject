@@ -25,7 +25,7 @@ class GossipsController < ApplicationController
     puts @gossip.title
     if @gossip.save
       redirect_to "/home"
-      flash[:success] = "Le potin a été créé avec succès."
+      flash[:success] = "Le gossip a été créé avec succès ! I know you love me... XoXo GossipGirl ;-)"
     else
        # Afficher les erreurs en cas d'échec
       puts "$" * 60
